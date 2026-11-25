@@ -1,0 +1,10 @@
+build/
+dist/
+SinkMonitor/Binaries/
+SinkMonitor/Intermediate/
+SinkMonitor/Saved/
+assets/blender/*.blend1
+assets/blender/*.blend2
+__pycache__/
+*.pyc
+.DS_Store
