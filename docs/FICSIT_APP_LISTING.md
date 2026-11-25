@@ -15,7 +15,7 @@ Use the fields below when creating or updating the mod listing on **https://fics
 - **Suggested Tags:** `Logistics`, `Quality of Life`, `UI`, `Multiplayer`, `Telemetry`
 - **Mod Icon / Logo File:** [`docs/SMR_Logo.png`](file:///mnt/Workspace/Antigravity/SatisfactorySinkMonitor/docs/SMR_Logo.png)
 - **Gallery Image / 3D Model Preview (Optional):** [`docs/renders/terminal_turnaround.png`](file:///mnt/Workspace/Antigravity/SatisfactorySinkMonitor/docs/renders/terminal_turnaround.png)
-- **Source URL:** *(leave blank until pushed to GitHub, or enter your GitHub repository URL once published)*
+- **Source URL:** `https://github.com/drakkhis/SinkMonitor`
 
 ---
 
@@ -24,7 +24,7 @@ Use the fields below when creating or updating the mod listing on **https://fics
 ```markdown
 **AWESOME Sink Monitor** adds a placeable **AWESOME Sink Monitor Terminal** to your factory so you can monitor everything your AWESOME Sinks are shredding in real time — without running between belts or guessing bottlenecks.
 
-![AWESOME Sink Monitor Terminal Turnaround](docs/renders/terminal_turnaround.png)
+![AWESOME Sink Monitor Terminal Turnaround](https://raw.githubusercontent.com/drakkhis/SinkMonitor/main/docs/renders/terminal_turnaround.png)
 
 ---
 
@@ -56,8 +56,6 @@ Use the fields below when creating or updating the mod listing on **https://fics
   - `4×` Copper Sheet
   - `2×` Quartz Crystal
 ```
-
-*(Note: when pasting on ficsit.app, either upload `terminal_turnaround.png` as an SMR mod screenshot or remove the markdown image line if not hosting it via URL.)*
 
 ---
 
