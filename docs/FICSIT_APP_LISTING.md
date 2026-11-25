@@ -62,7 +62,7 @@ Use the fields below when creating or updating the mod listing on **https://fics
 ## 3. Version Release Upload (`v0.1.0`)
 
 - **Upload File:** [`dist/SinkMonitor.zip`](file:///mnt/Workspace/Antigravity/SatisfactorySinkMonitor/dist/SinkMonitor.zip) (`41 MB`)
-- **Archive SHA-256:** `686663cce78e7a1beb963fa475b1a87626892a6c16f2766ec9b39f4421bff904`
+- **Archive SHA-256:** `be2f02b0d0cd1355387710f0927f2b4b3a607cff15899ecf4a4b41743538562f`
 - **Targets Included:** `Windows` (Steam & EGS), `WindowsServer`, `LinuxServer`
 - **Version:** `0.1.0`
 - **SML Dependency:** `^3.12.0` (`GameVersion >=517554`)
