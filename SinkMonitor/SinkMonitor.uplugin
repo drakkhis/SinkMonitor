@@ -1,8 +1,8 @@
 {
 	"FileVersion": 3,
 	"Version": 0,
-	"VersionName": "0.1.0",
-	"SemVersion": "0.1.0",
+	"VersionName": "0.1.1",
+	"SemVersion": "0.1.1",
 	"GameVersion": ">=517554",
 	"FriendlyName": "AWESOME Sink Monitor",
 	"Description": "Adds an interactive AWESOME Sink Monitor Terminal that tracks real-time items/min, points/min, and totals for every sinkable vanilla and modded item.",

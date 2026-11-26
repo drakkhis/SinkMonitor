@@ -1110,7 +1110,6 @@ void USinkMonitorInteractWidget::NativeDestruct()
 	}
 #endif
 	BoundSubsystem.Reset();
-	CachedIconTextures.Reset();
 
 	Super::NativeDestruct();
 }

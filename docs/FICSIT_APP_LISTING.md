@@ -1,4 +1,4 @@
-# ficsit.app (SMR) Submission Kit — AWESOME Sink Monitor (`v0.1.0`)
+# ficsit.app (SMR) Submission Kit — AWESOME Sink Monitor (`v0.1.1`)
 
 Use the fields below when creating or updating the mod listing on **https://ficsit.app/**.
 
@@ -59,18 +59,23 @@ Use the fields below when creating or updating the mod listing on **https://fics
 
 ---
 
-## 3. Version Release Upload (`v0.1.0`)
+## 3. Version Release Upload (`v0.1.1`)
 
 - **Upload File:** [`dist/SinkMonitor.zip`](file:///mnt/Workspace/Antigravity/SatisfactorySinkMonitor/dist/SinkMonitor.zip) (`41 MB`)
-- **Archive SHA-256:** `be2f02b0d0cd1355387710f0927f2b4b3a607cff15899ecf4a4b41743538562f`
+- **Archive SHA-256:** `857ecbe6737ee558a1c12d16f27f2b4b3a607cff15899ecf4a4b41743538562f`
 - **Targets Included:** `Windows` (Steam & EGS), `WindowsServer`, `LinuxServer`
-- **Version:** `0.1.0`
+- **Version:** `0.1.1`
 - **SML Dependency:** `^3.12.0` (`GameVersion >=517554`)
-- **Stability:** `Alpha` (or `Beta` for initial `0.1.0` community testing)
+- **Stability:** `Beta` (or `Alpha`)
 
 ### Release Notes / Changelog (Copy-Paste Markdown)
 
 ```markdown
+### v0.1.1 — GC Crash Hotfix
+
+- Fixed a UE 5.6 `DisregardForGC` crash (`EXCEPTION_ACCESS_VIOLATION` inside `SImage::OnPaint` when opening the Build Menu **Special** tab after the ~61-second periodic garbage collection pass).
+- Rooted all post-startup dynamically loaded assets (icons, build categories, recipe ingredients, `USinkMonitorUnlockRecipe` subobject, and fallback mesh/materials) via an `FGCObject`-backed referencer (`FSinkMonitorModule::KeepAssetAlive`), and kept widget icon caches rooted until `ReleaseSlateResources()`.
+
 ### Initial Release (`v0.1.0`)
 
 - Added **AWESOME Sink Monitor Terminal** buildable (`Special → AWESOME`, auto-unlocked at Tier 2 *Resource Sink Bonus Program* and retro-granted on existing unlocked saves).

@@ -46,6 +46,10 @@ namespace SinkMonitorContentAssets
 		{
 			UE_LOG(LogSinkMonitor, Warning, TEXT("SinkMonitor content failed to load icon texture: %s"), AssetPath);
 		}
+		else
+		{
+			FSinkMonitorModule::KeepAssetAlive(Texture);
+		}
 		return Texture;
 	}
 #endif
@@ -74,6 +78,7 @@ void USinkMonitorBuildingDescriptor::EnsureInitialized()
 
 	if (UClass* CategoryClass = LoadClass<UFGCategory>(nullptr, SinkMonitorContentAssets::BuildCategoryPath))
 	{
+		FSinkMonitorModule::KeepAssetAlive(CategoryClass);
 		mCategory = CategoryClass;
 	}
 	else
@@ -84,6 +89,7 @@ void USinkMonitorBuildingDescriptor::EnsureInitialized()
 	mSubCategories.Reset();
 	if (UClass* SubCategoryClass = LoadClass<UFGCategory>(nullptr, SinkMonitorContentAssets::BuildSubCategoryPath))
 	{
+		FSinkMonitorModule::KeepAssetAlive(SubCategoryClass);
 		mSubCategories.Add(SubCategoryClass);
 	}
 	else
@@ -132,6 +138,7 @@ void USinkMonitorRecipe::EnsureInitialized()
 		UClass* ItemClass = LoadClass<UFGItemDescriptor>(nullptr, Spec.AssetPath);
 		if (ItemClass)
 		{
+			FSinkMonitorModule::KeepAssetAlive(ItemClass);
 			mIngredients.Add(FItemAmount(ItemClass, Spec.Amount));
 		}
 		else
@@ -187,6 +194,7 @@ void USinkMonitorSchematic::EnsureInitialized()
 	if (UnlockRecipe)
 	{
 		UnlockRecipe->EnsureInitialized();
+		FSinkMonitorModule::KeepAssetAlive(UnlockRecipe);
 	}
 
 	mUnlocks.Reset();

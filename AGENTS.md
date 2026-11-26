@@ -88,3 +88,6 @@ This repository implements **AWESOME Sink Monitor (`SinkMonitor`)**, a Satisfact
     - AWESOME Shop Category: `/Game/FactoryGame/Schematics/ResourceSinkShopCategories/SC_RSS_Management.SC_RSS_Management_C`
     - Tier 2 Resource Sink Bonus Program Prerequisite: `/Game/FactoryGame/Schematics/Progression/Schematic_2-2.Schematic_2-2_C`
     - Build Gun Producer: `/Game/FactoryGame/Equipment/BuildGun/BP_BuildGun.BP_BuildGun_C`
+- **[v0.1.1 — UE 5.6 `CloseDisregardForGC` CDO Rooting Rule]:**
+  - Native C++ CDOs (`Default__SinkMonitorBuildingDescriptor`, `Default__SinkMonitorRecipe`, `Default__SinkMonitorSchematic`, `Default__SinkMonitorBuildable`) are allocated at startup inside Unreal's Disregard-for-GC pool, so GC never scans their `TObjectPtr` fields as roots.
+  - Always register any post-startup `LoadObject`/`LoadClass` asset or dynamic subobject held by a native CDO with `FSinkMonitorModule::KeepAssetAlive(...)` (`FGCObject`-backed `FSinkMonitorAssetRooter`), and never clear `USinkMonitorInteractWidget::CachedIconTextures` until `ReleaseSlateResources()`.

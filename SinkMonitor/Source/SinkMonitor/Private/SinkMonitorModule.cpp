@@ -7,11 +7,44 @@
 #include "Patching/NativeHookManager.h"
 #include "Resources/FGItemDescriptor.h"
 #include "SinkMonitorSubsystem.h"
+#include "UObject/GCObject.h"
 
 DEFINE_LOG_CATEGORY(LogSinkMonitor);
 
 namespace
 {
+class FSinkMonitorAssetRooter final : public FGCObject
+{
+public:
+	void Add(UObject* Object)
+	{
+		if (IsValid(Object))
+		{
+			KeepAliveObjects.AddUnique(Object);
+		}
+	}
+
+	void Reset()
+	{
+		KeepAliveObjects.Reset();
+	}
+
+	virtual void AddReferencedObjects(FReferenceCollector& Collector) override
+	{
+		Collector.AddReferencedObjects(KeepAliveObjects);
+	}
+
+	virtual FString GetReferencerName() const override
+	{
+		return TEXT("FSinkMonitorAssetRooter");
+	}
+
+private:
+	TArray<TObjectPtr<UObject>> KeepAliveObjects;
+};
+
+TUniquePtr<FSinkMonitorAssetRooter> GSinkMonitorAssetRooter;
+
 struct FThreadActiveSinkContext
 {
 	uint64 SinkUniqueId = 0;
@@ -95,8 +128,27 @@ void FSinkMonitorModule::StartupModule()
 	}
 }
 
+void FSinkMonitorModule::KeepAssetAlive(UObject* Object)
+{
+	if (!IsValid(Object) || IsRunningCommandlet() || IsEngineExitRequested() || !IsInGameThread())
+	{
+		return;
+	}
+	if (!GSinkMonitorAssetRooter)
+	{
+		GSinkMonitorAssetRooter = MakeUnique<FSinkMonitorAssetRooter>();
+	}
+	GSinkMonitorAssetRooter->Add(Object);
+}
+
 void FSinkMonitorModule::ShutdownModule()
 {
+	if (GSinkMonitorAssetRooter)
+	{
+		GSinkMonitorAssetRooter->Reset();
+		GSinkMonitorAssetRooter.Reset();
+	}
+
 	constexpr bool bIsEditorBuild = (WITH_EDITOR != 0);
 	if (!bIsEditorBuild)
 	{

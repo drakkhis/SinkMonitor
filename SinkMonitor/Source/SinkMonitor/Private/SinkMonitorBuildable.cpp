@@ -5,6 +5,8 @@
 #include "Engine/StaticMesh.h"
 #include "FGClearanceData.h"
 #include "Hologram/FGBuildableHologram.h"
+#include "Materials/MaterialInterface.h"
+#include "SinkMonitorModule.h"
 #include "UI/SinkMonitorInteractWidget.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -76,11 +78,30 @@ void ASinkMonitorBuildable::BeginPlay()
 
 void ASinkMonitorBuildable::EnsureMeshLoaded()
 {
-	if (MainMesh && !MainMesh->GetStaticMesh())
+	if (!MainMesh)
 	{
-		if (UStaticMesh* LoadedMesh = LoadObject<UStaticMesh>(nullptr, MeshAssetPath))
+		return;
+	}
+
+	UStaticMesh* Mesh = MainMesh->GetStaticMesh();
+	if (!Mesh)
+	{
+		Mesh = LoadObject<UStaticMesh>(nullptr, MeshAssetPath);
+		if (Mesh)
 		{
-			MainMesh->SetStaticMesh(LoadedMesh);
+			MainMesh->SetStaticMesh(Mesh);
+		}
+	}
+
+	if (Mesh)
+	{
+		FSinkMonitorModule::KeepAssetAlive(Mesh);
+		for (const FStaticMaterial& StaticMat : Mesh->GetStaticMaterials())
+		{
+			if (StaticMat.MaterialInterface)
+			{
+				FSinkMonitorModule::KeepAssetAlive(StaticMat.MaterialInterface);
+			}
 		}
 	}
 }
